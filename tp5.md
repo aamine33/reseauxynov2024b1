@@ -113,7 +113,7 @@ rtt min/avg/max/mdev = 20.982/24.327/28.779/4.346 ms
 🌞 Installez le paquet nginx
 
 ``````
-[àbatm@web ~]$ sudo dnf install nginx -y
+[abatm@web ~]$ sudo dnf install nginx -y
 ``````
 🌞 Créer le site web
 ``````
