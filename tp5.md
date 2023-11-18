@@ -127,7 +127,7 @@ rtt min/avg/max/mdev = 20.982/24.327/28.779/4.346 ms
 ``````
 🌞 Créer un fichier de configuration NGINX pour notre site web
 ``````
-[àbatm@web ~]$ sudo nano /etc/nginx/conf.d/site_web_nul.conf
+[abatm@web ~]$ sudo nano /etc/nginx/conf.d/site_web_nul.conf
 ``````
 🌞 Démarrer le serveur web !
 
