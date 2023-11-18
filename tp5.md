@@ -96,3 +96,66 @@ PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
 --- 8.8.8.8 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1002ms
 ``````
+- node1.tp5.b1 peut résoudre des noms de domaine publics (comme www.ynov.com)
+
+``````
+[abatm@node ~]$ ping ynov.com
+PING ynov.com (104.26.10.273) 56(84) bytes of data.
+64 bytes from 104.26.10.273 (104.26.10.233): icmp_seq=1 ttl=55 time=20.9 ms
+64 bytes from 104.26.10.273 (104.26.10.233): icmp_seq=2 ttl=55 time=32.6 ms
+^C
+--- ynov.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1768ms
+rtt min/avg/max/mdev = 20.982/24.327/28.779/4.346 ms
+``````
+3. Serveur Web
+
+🌞 Installez le paquet nginx
+
+``````
+[àbatm@web ~]$ sudo dnf install nginx -y
+``````
+🌞 Créer le site web
+``````
+[abatm@web var]$ mkdir www
+[abatm@web var]$ sudo mkdir www
+[abatm@web site_web_nul]$ sudo nano index.html
+``````
+🌞 Donner les bonnes permissions
+``````
+[abatm@web ~]$ sudo chown -R nginx:nginx /var/www/site_web_nul
+``````
+🌞 Créer un fichier de configuration NGINX pour notre site web
+``````
+[àbatm@web ~]$ sudo nano /etc/nginx/conf.d/site_web_nul.conf
+``````
+🌞 Démarrer le serveur web !
+
+``````
+[abatm@servweb conf.d]$ sudo systemctl start nginx
+[abatm@servweb conf.d]$ sudo systemctl status nginx
+● nginx.service - The nginx HTTP and reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; prese>
+     Active: active (running) since Fri 2023-11-16 14:22:32 CET; 11s ago
+``````
+🌞 Ouvrir le port firewall
+
+``````
+[abatm@web ~]$ sudo firewall-cmd --add-port=80/tcp --permanent
+success
+[abatm@web ~]$ sudo firewall-cmd --reload
+success
+``````
+🌞 Visitez le serveur web !
+
+``````
+[abatm@node ~]$ sudo curl http://10.5.1.12
+<h1>MEOW</h1>
+``````
+🌞 Visualiser le port en écoute
+
+``````
+[abatm@web ~]$ ss -atnl
+State          Recv-Q         Send-Q                  Local Address:Port                   Peer Address:Port         Process
+LISTEN         0              511                           0.0.0.0:80                          0.0.0.0:*
+``````
